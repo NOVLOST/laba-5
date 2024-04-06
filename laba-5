@@ -13,7 +13,7 @@ import functools
 """n это переменная для значения n"""
 n=-1
 """one это переменная для определения знака"""
-one=-1
+one=1
 """k это переменная для выбора режима работы"""
 k=-1
 timer=[]
@@ -30,24 +30,25 @@ def factrial(x):
         return x
     else:
         return math.factorial(x)
-def rec_f(x):
+def rec_f(x,one):
 
     if x < 2:
         return 1
     else:
+        one*=-1
 
-
-        return ((one)*-1)*(rec_f(x - 1)-rec_g(x-1)) //factrial(x+5)
+        return (one)*(rec_f(x - 1,one)-rec_g(x-1,one)) //factrial(x+5)
 
 
 """итерация"""
 def it_f(x):
     cata_f=[1]*3
     cata_g=[1]*3
+    one = 1
     for i in range(2,x+1):
-
+        one *= -1
         cata_g[-1]=cata_f[0]+int((math.sin(cata_f[-1])))
-        cata_f[-1]=((one) * x) * (cata_f[0] - cata_g[0]) //  factrial(x + 5)
+        cata_f[-1]=(one * (cata_f[0] - cata_g[0]) //  factrial(x + 5))
         cata_f[0],cata_f[1]=cata_f[1],cata_f[2]
         cata_g[0], cata_g[1] = cata_g[1], cata_g[2]
 
@@ -60,11 +61,11 @@ def it_f(x):
 def sinFunc(x):
     return math.sin(x)
 
-def rec_g(x):
+def rec_g(x,one):
     if x < 2:
         return 1
     else:
-        return (rec_f(x-1)+int(sinFunc(x)))
+        return (rec_f(x-1,one)+int(sinFunc(x)))
 
 """ввод числа n"""
 while n < 1:
@@ -92,7 +93,7 @@ if (n >=  33 and (k == 0 or k == 2)) or (n >= 5000 and (k == 1 or k == 2)):
 if k == 0 and ans == 1:
     for i in graf:
         start = time.time()
-        res = rec_f(i)
+        res = rec_f(i,one)
         end = time.time()
         timer.append(end-start)
         rec_times = end - start
@@ -125,7 +126,7 @@ if k == 2 and ans == 1:
         end = time.time()
         timer.append(end-start)
         start_rec = time.time()
-        res = rec_f(i)
+        res = rec_f(i,one)
         end_rec = time.time()
         timer_rec.append(end_rec-start_rec)
         rec_times = end_rec-start_rec
