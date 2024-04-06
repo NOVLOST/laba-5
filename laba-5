@@ -9,20 +9,35 @@
 import math
 import time
 import matplotlib.pyplot as plt
+import functools
+"""n это переменная для значения n"""
 n=-1
+"""one это переменная для определения знака"""
+one=-1
+"""k это переменная для выбора режима работы"""
 k=-1
 timer=[]
 timer_rec=[]
+"""ans это переменная для ответа пользователя """
 ans=1
 """шаг графика"""
 step=-1
 
 """рекурсия"""
+@functools.lru_cache(maxsize=100000)
+def factrial(x):
+    if x == 1:
+        return x
+    else:
+        return math.factorial(x)
 def rec_f(x):
+
     if x < 2:
         return 1
     else:
-        return ((-1)**x)*(rec_f(x - 1)-rec_g(x-1)) //int(math.factorial(x+5))
+
+
+        return ((one)*-1)*(rec_f(x - 1)-rec_g(x-1)) //factrial(x+5)
 
 
 """итерация"""
@@ -32,7 +47,7 @@ def it_f(x):
     for i in range(2,x+1):
 
         cata_g[-1]=cata_f[0]+int((math.sin(cata_f[-1])))
-        cata_f[-1]=((-1) ** x) * (cata_f[0] - cata_g[0]) //  int(math.factorial(x + 5))
+        cata_f[-1]=((one) * x) * (cata_f[0] - cata_g[0]) //  factrial(x + 5)
         cata_f[0],cata_f[1]=cata_f[1],cata_f[2]
         cata_g[0], cata_g[1] = cata_g[1], cata_g[2]
 
@@ -41,11 +56,15 @@ def it_f(x):
 
 
 """рекурсия"""
+@functools.lru_cache(maxsize=100000)
+def sinFunc(x):
+    return math.sin(x)
+
 def rec_g(x):
     if x < 2:
         return 1
     else:
-        return (rec_f(x-1)+int(math.sin(x)))
+        return (rec_f(x-1)+int(sinFunc(x)))
 
 """ввод числа n"""
 while n < 1:
