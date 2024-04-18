@@ -9,7 +9,7 @@
 import math
 import time
 import matplotlib.pyplot as plt
-import functools
+from functools import lru_cache
 """n это переменная для значения n"""
 n=-1
 """one это переменная для определения знака"""
@@ -25,7 +25,7 @@ ans=1
 step=-1
 
 """рекурсия"""
-@functools.lru_cache(maxsize=100000)
+@lru_cache(maxsize=None)
 def factrial(x):
     if x == 1:
         return x
@@ -41,6 +41,11 @@ def rec_f(x,one):
 
         return (rec_f(x - 1,one)-rec_g(x-1,one)) // factrial(x+5)
 
+def rec_g(x,one):
+    if x < 2:
+        return 1
+    else:
+        return rec_f(x-1,one)+int(math.sin(x))
 
 """итерация"""
 def it_f(x):
@@ -56,21 +61,13 @@ def it_f(x):
         one *= -1
 
     return cata_f[-1]
-@functools.lru_cache(maxsize=100000)
+@lru_cache(maxsize=None)
 def it_factorial(x):
-    res=1
-    for i in range(x):
+    res=x
+    for i in range(1,x):
         res = res * (i+1)
     return res
 
-"""рекурсия"""
-
-
-def rec_g(x,one):
-    if x < 2:
-        return 1
-    else:
-        return rec_f(x-1,one)+int(math.sin(x))
 
 """ввод числа n"""
 while n < 1:
